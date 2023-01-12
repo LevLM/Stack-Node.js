@@ -97,7 +97,7 @@ app.listen(5000, () => {
 // Checking
 
 // Create new element throw curl:
-// curl -X POST -H "Content-Type: application/json" -d '{"user": "Shlomo"}' http://localhost:5000/newElement
+// curl -X POST -H "Content-Type: application/json" -d '{"user": "Shlom"}' http://localhost:5000/newElement
 // curl -X POST -H "Content-Type: application/json" -d '{"user": "Haim"}' http://localhost:5000/newElement
 
 // Delete element throw curl:
