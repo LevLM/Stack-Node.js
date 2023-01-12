@@ -25,13 +25,23 @@ app.post('/newElement', (req, res) => {
     }
 });
  
+// app.delete('/remove', (req, res) => {
+//     if (myStack.length == 0) return "Stack Is Empty";
+//     const pop = myStack.pop()
+//     console.log(pop, ' deleted from stack')
+//     res.json(pop + ' deleted from stack')
+//     console.log(myStack)
+// });
+
 app.delete('/remove', (req, res) => {
     if (myStack.length == 0) return "Stack Is Empty";
-    const pop = myStack.pop()
+    const pop = myStack[myStack.length - 1]
+    myStack.splice(myStack.length - 1, 1);
     console.log(pop, ' deleted from stack')
     res.json(pop + ' deleted from stack')
     console.log(myStack)
 });
+
 
 app.get('/top', (req, res) => {
     if (myStack.length == 0) return "Stack Is Empty";
