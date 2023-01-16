@@ -21,7 +21,7 @@ app.post('/newElement', (req, res) => {
         console.log(myStack)
     } else {
         console.log('type error')
-        res.json('type error')
+        res.status(400).json('type error')
     }
 });
  
@@ -38,7 +38,7 @@ app.delete('/remove', (req, res) => {
     const pop = myStack[myStack.length - 1]
     myStack.splice(myStack.length - 1, 1);
     console.log(pop, ' deleted from stack')
-    res.json(pop + ' deleted from stack')
+    res.json(pop + ' deleted from stack, the elements of the stack now: ' + myStack)
     console.log(myStack)
 });
 
@@ -47,7 +47,7 @@ app.get('/top', (req, res) => {
     if (myStack.length == 0) return "Stack Is Empty";
     const peek = myStack[myStack.length - 1]
     console.log(peek, ' is top element of stack')
-    res.json(peek + ' is top element of stack');
+    res.json(peek + ' is top element of stack')
     console.log(myStack)
 });
 
@@ -55,7 +55,7 @@ app.get('/length', (req, res) => {
     if (myStack.length == 0) return "Stack Is Empty";
     const length_stack = myStack.length
     console.log('Length of stack is ', length_stack)
-    res.json('Length of stack is ' + length_stack);
+    res.json(length_stack);
     console.log(myStack)
 });
 
@@ -81,6 +81,8 @@ app.listen(5000, () => {
    console.log('server started');
    
 });
+
+module.exports = app
 
 
 
