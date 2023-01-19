@@ -19,6 +19,45 @@ describe("POST:", () => {
     })
 })
 
+describe("POST:", () => {
+    test("when input don't correct (integer)", async () => {
+      const response = await request(app).post("/newElement").send('333')
+      expect(response.statusCode).toBe(400)
+    })
+})
+
+// describe("POST:", () => {
+//   afterAll(async () => {await request(app).delete("/remove")})
+//   it("when input don't correct (without value)", async () => {
+//     const bodyData = [{user}]
+//     for (const body of bodyData) {
+//       const response = await request(app).post("/newElement").send(body)
+//       expect(response.statusCode).toBe(400)
+//     }
+//   })
+// })
+
+// describe("POST:", () => {
+//   test("when input don't correct (string)", async () => {
+//     const bodyData = ['user']
+//     for (const body of bodyData) {
+//       const response = await request(app).post("/newElement").send(body)
+//       expect(response.headers['content-type']).not.toEqual(expect.stringContaining("json"))
+//     }
+//   })
+// })
+
+describe("POST:", () => {
+  afterAll(async () => {await request(app).delete("/remove")})
+  it("when input correct but with added data ", async () => {
+    const bodyData = [{user: "user", password: "password"}]
+    for (const body of bodyData) {
+      const response = await request(app).post("/newElement").send(body)
+      expect(response.statusCode).toBe(200)
+    }
+  })
+})
+
 describe("DELETE:", () => {
     test("server respond 200 status code /remove", async () => {
       const response = await request(app).delete("/remove")
@@ -32,6 +71,13 @@ describe("DELETE:", () => {
   it("method DELETE return element and remove it from stack", async () => {
     const response = await request(app).delete("/remove")
     expect(response.body).toBe('user deleted from stack, the elements of the stack now: ');
+  });
+})  
+
+describe("DELETE:", () => {
+  test("method DELETE return Stack Is Empty", async () => {
+    const response = await request(app).delete("/remove")
+    expect(response.body).toBe('Stack Is Empty');
   });
 })  
 
@@ -64,6 +110,23 @@ describe("GET:", () => {
     const response = await request(app).get("/search/0");
     expect(response.statusCode).toBe(200);
     expect(response.body).toBe('user');
+  });
+});
+
+describe("GET:", () => {
+  test("check /search/:id if stack is empty", async () => {
+    const response = await request(app).get("/search/0");
+    expect(response.body).toBe('Stack Is Empty');
+  });
+});
+
+describe("GET:", () => {
+  const newElement = {user: "user"}
+  beforeAll(async () => {await request(app).post("/newElement").send(newElement);})
+  afterAll(async () => {await request(app).delete("/remove")})
+  it("check /search/:id if there isn't such id", async () => {
+    const response = await request(app).get("/search/255");
+    expect(response.body).toBe('not found');
   });
 });
 

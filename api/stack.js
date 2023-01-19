@@ -14,8 +14,15 @@ const myStack = [];
 
 app.post('/newElement', (req, res) => {
     const addNewElement = req.body.user
-    console.log(addNewElement)
+    const bbb = req.body
     if (typeof addNewElement == 'string') {
+        // try {
+        //     JSON.parse(bbb);
+        // } catch (e) {
+        //     console.log('data error', bbb)
+        //     res.status(400).json('data error')
+        //     return false
+        // }
         myStack.push(addNewElement);
         res.json()
         console.log(myStack)
@@ -34,7 +41,10 @@ app.post('/newElement', (req, res) => {
 // });
 
 app.delete('/remove', (req, res) => {
-    if (myStack.length == 0) return "Stack Is Empty";
+    if (myStack.length == 0) {
+        res.json("Stack Is Empty")
+        return "Stack Is Empty"
+    }
     const pop = myStack[myStack.length - 1]
     myStack.splice(myStack.length - 1, 1);
     console.log(pop, ' deleted from stack')
@@ -44,7 +54,10 @@ app.delete('/remove', (req, res) => {
 
 
 app.get('/top', (req, res) => {
-    if (myStack.length == 0) return "Stack Is Empty";
+    if (myStack.length == 0) {
+        res.json("Stack Is Empty")
+        return "Stack Is Empty"
+    }
     const peek = myStack[myStack.length - 1]
     console.log(peek, ' is top element of stack')
     res.json(peek + ' is top element of stack')
@@ -52,7 +65,10 @@ app.get('/top', (req, res) => {
 });
 
 app.get('/length', (req, res) => {
-    if (myStack.length == 0) return "Stack Is Empty";
+    if (myStack.length == 0) {
+        res.json("Stack Is Empty")
+        return "Stack Is Empty"
+    }
     const length_stack = myStack.length
     console.log('Length of stack is ', length_stack)
     res.json(length_stack);
@@ -60,13 +76,19 @@ app.get('/length', (req, res) => {
 });
 
 app.get('/print', (req, res) => {
-    if (myStack.length == 0) return "Stack Is Empty";
+    if (myStack.length == 0) {
+        res.json("Stack Is Empty")
+        return "Stack Is Empty"
+    }
     console.log('The elements of the stack: ', myStack)
     res.json('The elements of the stack: ' + myStack)
 });
 
 app.get('/search/:id', (req, res) => {
-    if (myStack.length == 0) return "Stack Is Empty";
+    if (myStack.length == 0) {
+        res.json("Stack Is Empty")
+        return "Stack Is Empty"
+    }
     let id = req.params.id;
     for (var item = 0; item < myStack.length; item++)
         if (item == id) {
@@ -101,6 +123,8 @@ module.exports = app
 // Create new element throw curl:
 // curl -X POST -H "Content-Type: application/json" -d '{"user": "Shlom"}' http://localhost:5000/newElement
 // curl -X POST -H "Content-Type: application/json" -d '{"user": "Haim"}' http://localhost:5000/newElement
+// curl -X POST -H 333 http://localhost:5000/newElement
+// curl -X POST -H "Content-Type: application/json" -d '{"user"}' http://localhost:5000/newElement
 
 // Delete element throw curl:
 // curl -X DELETE http://localhost:5000/remove
