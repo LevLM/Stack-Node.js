@@ -14,15 +14,7 @@ const myStack = [];
 
 app.post('/newElement', (req, res) => {
     const addNewElement = req.body.user
-    const bbb = req.body
     if (typeof addNewElement == 'string') {
-        // try {
-        //     JSON.parse(bbb);
-        // } catch (e) {
-        //     console.log('data error', bbb)
-        //     res.status(400).json('data error')
-        //     return false
-        // }
         myStack.push(addNewElement);
         res.json()
         console.log(myStack)
